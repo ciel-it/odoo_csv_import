@@ -84,7 +84,9 @@ class RPCThreadImport(RpcThread):
 
 
     def _send_rpc(self, lines, batch_number, sub_batch_number, check=False):
-        res = self.model.load(self.header, lines, context=self.context)
+        # Rafael Petrella - 28/04/18
+        #res = self.model.load(self.header, lines, context=self.context)
+        res = self.model.load(self.header, lines)
         if res['messages']:
             for msg in res['messages']:
                 log_error('batch %s, %s' % (batch_number, sub_batch_number))
