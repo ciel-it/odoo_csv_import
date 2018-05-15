@@ -138,8 +138,11 @@ def read_file(file_to_read, delimiter=';', encoding='utf-8-sig', skip=0):
         try:
             header.index('id')
         except ValueError as ve:
-            log_error("No External Id (id) column defined, please add one")
-            raise ve
+            try:
+                header.index('.id')
+            except ValueError as ve:
+                log_error("No External Id (id) or Database Id (.id) column defined, please add one")
+                raise ve
 
     def skip_line(reader):
         log_info("Skipping until line %s excluded" % skip)
